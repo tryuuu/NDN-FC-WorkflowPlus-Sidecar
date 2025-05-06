@@ -1,14 +1,29 @@
 import grpc
-import function_pb2
-import function_pb2_grpc
+from concurrent import futures
 import time
 
-time.sleep(1)  # サイドカー待機
+import function_pb2
+import function_pb2_grpc
 
-channel = grpc.insecure_channel('localhost:50051')
-stub = function_pb2_grpc.FunctionRuntimeStub(channel)
 
-request = function_pb2.FunctionRequest(name='greet', args=['Alice', 'Bob'])
-response = stub.ExecuteFunction(request)
+class FunctionRuntimeServicer(function_pb2_grpc.FunctionRuntimeServicer):
+    def ExecuteFunction(self, request, context):
+        name = request.name
+        args = request.args
+        print(f"[Function] Received function call: {name}, args: {args}", flush=True)
+        result = f"Hello {name}, args: {', '.join(args)}"
+        return function_pb2.FunctionResponse(result=result)
 
-print(f"Function got response: {response.result}")
+
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    function_pb2_grpc.add_FunctionRuntimeServicer_to_server(FunctionRuntimeServicer(), server)
+    server.add_insecure_port('[::]:50051')
+    print("Function gRPC Server starting on port 50051...", flush=True)
+    server.start()
+    server.wait_for_termination()
+
+
+if __name__ == '__main__':
+    print("Starting Function gRPC Server...", flush=True)
+    serve()

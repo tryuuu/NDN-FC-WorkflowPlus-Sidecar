@@ -4,11 +4,9 @@ metadata:
   name: ndn-func-poc
 spec:
   containers:
-    - name: sidecar
-      image: sidecar-image
+    - name: ndn-fcw-sidecar
+      image: ndn-fcw-sidecar:v15
       imagePullPolicy: IfNotPresent
-      ports:
-        - containerPort: 50051
-    - name: function
-      image: function-image
+    - name: user-function
+      image: function-image:v15
       imagePullPolicy: IfNotPresent
