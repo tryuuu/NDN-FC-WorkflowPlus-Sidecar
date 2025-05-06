@@ -25,7 +25,7 @@ NDN-FCWPlusSidecar/
 ├── proto/             # gRPC の proto 定義
 ├── sidecar/           # NDN + gRPC サイドカーの実装
 ├── README.md          # 本ファイル
-├── DEV\_MEMO.md        # 開発メモ（設計やTODO等）
+└── DEV_MEMO.md        # 開発メモ（設計やTODO等）
 
 ````
 
