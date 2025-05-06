@@ -5,8 +5,27 @@ metadata:
 spec:
   containers:
     - name: ndn-fcw-sidecar
-      image: ndn-fcw-sidecar:v15
+      image: harutokobayashi/ndn-fcw-sidecar
       imagePullPolicy: IfNotPresent
+      env:
+        - name: NLSR_CONFIG_FILE_PATH
+          value: "/app/nlsr.conf"
+        - name: NDN_FUNCTION_PREFIX
+          value: "/func_nodeX"
+      volumeMounts:
+        - name: nlsr-config-volume
+          mountPath: /app/nlsr.conf
+          subPath: nlsr.conf
+
+    # - name: user-function
+    #   image: your-registry/ndn-function:latest
+    #   imagePullPolicy: IfNotPresent
+
     - name: user-function
-      image: function-image:v15
+      image: function-image:v13
       imagePullPolicy: IfNotPresent
+
+  volumes:
+    - name: nlsr-config-volume
+      configMap:
+        name: nlsr-config

@@ -27,3 +27,9 @@ kubectl exec -it ndn-func-poc -c ndn-fcw-sidecar -- bash
 python3 consumer.py "/func_nodeX/data"
 python3 consumer.py "/func_nodeX/(/func_nodeX/data)"
 ```
+
+### nlsr.conf
+
+```
+kubectl create configmap nlsr-config --from-file=nlsr.conf=./k8s/nlsr.conf
+```

@@ -28,5 +28,5 @@ done
 
 echo "All faces created."
 
-# NDNFunction 実行（固定prefixでも良い）
-python3 main.py /func_nodeX
+PREFIX=${NDN_FUNCTION_PREFIX}
+python3 main.py "$PREFIX"
