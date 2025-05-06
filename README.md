@@ -65,11 +65,3 @@ cd sidecar
 docker build -t harutokobayashi/ndn-fcw-sidecar:latest .
 docker push harutokobayashi/ndn-fcw-sidecar:latest
 ```
-
-
-## 📄 使用技術
-
-* [Named Data Networking (NDN)](https://named-data.net/)
-* [gRPC](https://grpc.io/)
-* [Python 3.10+](https://www.python.org/)
-* [Kubernetes](https://kubernetes.io/)
