@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ndn-func-poc
+spec:
+  containers:
+    - name: sidecar
+      image: sidecar-image
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 50051
+    - name: function
+      image: function-image
+      imagePullPolicy: IfNotPresent
