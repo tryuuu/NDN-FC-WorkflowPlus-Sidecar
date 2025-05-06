@@ -1,28 +1,24 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ndn-func-poc
+  name: ndn-func-demo
 spec:
   containers:
     - name: ndn-fcw-sidecar
-      image: harutokobayashi/ndn-fcw-sidecar
+      image: harutokobayashi/ndn-fcw-sidecar:latest
       imagePullPolicy: IfNotPresent
       env:
         - name: NLSR_CONFIG_FILE_PATH
           value: "/app/nlsr.conf"
         - name: NDN_FUNCTION_PREFIX
-          value: "/func_nodeX"
+          value: "/func_demo"
       volumeMounts:
         - name: nlsr-config-volume
           mountPath: /app/nlsr.conf
           subPath: nlsr.conf
 
-    # - name: user-function
-    #   image: your-registry/ndn-function:latest
-    #   imagePullPolicy: IfNotPresent
-
     - name: user-function
-      image: function-image:v13
+      image: harutokobayashi/ndn-fcw-function-demo:latest # 自分の関数をビルドして push したもの
       imagePullPolicy: IfNotPresent
 
   volumes:
