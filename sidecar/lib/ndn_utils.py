@@ -122,11 +122,11 @@ async def segment_fetcher_original(app: NDNApp, name: NonStrictName, first_nonce
         seg_no += 1
 
 # interestを送る
-async def get_data(app: NDNApp, name: str, nonce: Optional[str] = None) -> Optional[bytes]:
+async def get_data(app: NDNApp, name: str, timeout: int = 20000, nonce: Optional[str] = None) -> Optional[bytes]:
     result = b''
 
     try:
-        async for seg in segment_fetcher_original(app, name, first_nonce=nonce, timeout=20000):
+        async for seg in segment_fetcher_original(app, name, first_nonce=nonce, timeout=timeout):
             data = bytes(seg)
             result += data
     except InterestNack as e:

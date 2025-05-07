@@ -6,7 +6,7 @@ spec:
   containers:
     - name: ndn-fcw-sidecar
       image: harutokobayashi/ndn-fcw-sidecar:latest
-      imagePullPolicy: IfNotPresent
+      imagePullPolicy: Always
       env:
         - name: NLSR_CONFIG_FILE_PATH
           value: "/app/nlsr.conf"
@@ -19,7 +19,7 @@ spec:
 
     - name: user-function
       image: harutokobayashi/ndn-fcw-function-demo:latest # 自分の関数をビルドして push したもの
-      imagePullPolicy: IfNotPresent
+      imagePullPolicy: Always
 
   volumes:
     - name: nlsr-config-volume

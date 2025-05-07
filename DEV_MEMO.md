@@ -41,21 +41,21 @@ kubectl delete -f k8s/pod.yaml
 ## 🧾 ログ確認
 
 ```bash
-kubectl logs -f pod/ndn-func-poc -c ndn-fcw-sidecar
-kubectl logs -f pod/ndn-func-poc -c user-function
+kubectl logs -f pod/ndn-func-demo -c ndn-fcw-sidecar
+kubectl logs -f pod/ndn-func-demo -c user-function
 ```
 
 ## 🧠 コンテナに入る
 
 ```bash
-kubectl exec -it ndn-func-poc -c ndn-fcw-sidecar -- bash
-kubectl exec -it ndn-func-poc -c user-function -- bash
+kubectl exec -it ndn-func-demo -c ndn-fcw-sidecar -- bash
+kubectl exec -it ndn-func-demo -c user-function -- bash
 ```
 
 ## ✅ 動作確認
 
 ```bash
-kubectl exec -it ndn-func-poc -c ndn-fcw-sidecar -- bash
+kubectl exec -it ndn-func-demo -c ndn-fcw-sidecar -- bash
 python3 consumer.py "/func_demo/data"
 python3 consumer.py "/func_demo/(/func_demo/data)"
 ```
