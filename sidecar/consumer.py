@@ -23,6 +23,7 @@ async def main():
     interest_name = user_name + "/" + sys.argv[1]
 
     try:
+        # インタレストパケットを送信
         content = await get_data(app, interest_name)
         print(bytes(content) if content else None)
     except InterestNack as e:
