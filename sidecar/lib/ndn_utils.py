@@ -8,6 +8,7 @@ from ndn.app import NDNApp
 from ndn.types import InterestNack, InterestTimeout, InterestCanceled, ValidationFailure
 from ndn.encoding import Name, Component
 from ndn.utils import timestamp
+import os
 
 SEGMENT_SIZE = 90
 
@@ -145,4 +146,9 @@ async def get_data(app: NDNApp, name: str, timeout: int = 20000, nonce: Optional
 def extract_my_function_name(name: FormalName) -> str:
     decoded_url = decode_and_remove_metadata(name)
     end_of_function_name = decoded_url.find('/(')
-    return decoded_url[:end_of_function_name]
+    full_function_name = decoded_url[:end_of_function_name]
+    # ユーザー名を除去
+    user_name = os.getenv('USER_NAME', 'default')  
+    if full_function_name.startswith(f"/{user_name}/"):
+        function_name = full_function_name[len(f"/{user_name}/"):]
+    return function_name

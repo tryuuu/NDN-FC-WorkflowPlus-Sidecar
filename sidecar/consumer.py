@@ -1,5 +1,6 @@
 import logging
 import sys
+import os
 from ndn.app import NDNApp
 from ndn.types import InterestNack, InterestTimeout, InterestCanceled, ValidationFailure
 from ndn.encoding import Name
@@ -18,7 +19,8 @@ async def main():
         app.shutdown()
         return
 
-    interest_name = sys.argv[1]
+    user_name = os.getenv('USER_NAME', 'default')
+    interest_name = user_name + "/" + sys.argv[1]
 
     try:
         content = await get_data(app, interest_name)
