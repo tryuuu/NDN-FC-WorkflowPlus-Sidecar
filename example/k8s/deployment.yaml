@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ndn-func-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ndn-func-demo
+  template:
+    metadata:
+      labels:
+        app: ndn-func-demo
+    spec:
+      containers:
+        - name: ndn-fcw-sidecar
+          image: tryuu/ndn-fcw-sidecar:latest
+          imagePullPolicy: Always
+          env:
+            - name: NLSR_CONFIG_FILE_PATH
+              value: "/app/nlsr.conf"
+            - name: NDN_FUNCTION_PREFIX
+              value: "/func_demo"
+            - name: USER_NAME
+              value: "user-x"
+          volumeMounts:
+            - name: nlsr-config-volume
+              mountPath: /app/nlsr.conf
+              subPath: nlsr.conf
+        - name: user-function
+          image: tryuu/ndn-fcw-function-demo:latest
+          imagePullPolicy: Always
+      volumes:
+        - name: nlsr-config-volume
+          configMap:
+            name: nlsr-config

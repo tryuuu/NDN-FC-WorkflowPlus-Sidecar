@@ -42,8 +42,14 @@ def main(name: str, args: list[str]) -> str:
 cd example/app
 
 # Docker Hub 上に push したいイメージ名を指定
-docker build -t harutokobayashi/ndn-fcw-function-demo:latest .
-docker push harutokobayashi/ndn-fcw-function-demo:latest
+docker build -t tryuu/ndn-fcw-function-demo:latest .
+docker push tryuu/ndn-fcw-function-demo:latest
+```
+
+```bash
+cd sidecar
+docker build -t tryuu/ndn-fcw-sidecar:latest .
+docker push tryuu/ndn-fcw-sidecar:latest
 ```
 
 ※ `harutokobayashi` の部分はご自身の Docker Hub アカウントに置き換えてください。
